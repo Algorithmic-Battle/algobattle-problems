@@ -1,18 +1,17 @@
 [project]
 name = "algobattle-problems"
-version = "1.0.0"
-requires-python = ">=3.11"
+version = "1.1.0"
+requires-python = ">=3.14"
 license = {text = "MIT"}
 authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
 dependencies = [
-    "algobattle-base~=4.0.0",
+    "algobattle-base~=4.4.0",
     "networkx",
 ]
 
 [project.urls]
-Homepage = "https://algobattle.org"
-Documentation = "https://algobattle.org/docs"
-Repository = "https://github.com/Benezivas/algobattle-problems"
+Documentation = "https://algorithmic-battle.github.io/algobattle"
+Repository = "https://github.com/Algorithmic-Battle/algobattle-problems"
 
 [project.entry-points."algobattle.problem"]
 "Bipartite Clique" = "algobattle_problems.biclique.problem:Biclique"
@@ -32,4 +31,4 @@ Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 diagnosticMode = "workspace"
 
 [tool.black]
-line-length = 120
+line-length = 100
