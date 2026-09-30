@@ -1,9 +1,10 @@
 """Tests for the Pairsum problem."""
+
 import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.pairsum.problem import Instance, Solution, ValidationError, Role
+from algobattle_problems.pairsum.problem import Instance, Role, Solution, ValidationError
 
 
 class Tests(unittest.TestCase):
@@ -20,7 +21,9 @@ class Tests(unittest.TestCase):
 
     def test_solution_wrong_indices(self):
         with self.assertRaises(PydanticValidationError):
-            Solution.model_validate({"indices": (100, 101, 102, 103)}, context={"instance": self.instance})
+            Solution.model_validate(
+                {"indices": (100, 101, 102, 103)}, context={"instance": self.instance}
+            )
 
     def test_solution_duplicate_index(self):
         with self.assertRaises(PydanticValidationError):

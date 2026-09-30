@@ -1,19 +1,20 @@
 """The C4subgraphiso problem class."""
 
+from collections.abc import Iterator
 from itertools import combinations, cycle, islice
-from typing import Annotated, Iterator
-from pydantic import field_validator
+from typing import Annotated
 
 from algobattle.problem import Problem, SolutionModel, maximize
+from algobattle.types import UndirectedGraph, UniqueItems, Vertex
 from algobattle.util import Role, ValidationError
-from algobattle.types import UndirectedGraph, Vertex, UniqueItems
+from pydantic import field_validator
 
 Square = Annotated[tuple[Vertex, Vertex, Vertex, Vertex], UniqueItems()]
 
 
 def edges(square: Square) -> Iterator[tuple[Vertex, Vertex]]:
     """Returns all edges of a square."""
-    return zip(square, islice(cycle(square), 1, None))
+    return zip(square, islice(cycle(square), 1, None), strict=False)
 
 
 def diagonals(square: Square) -> Iterator[tuple[Vertex, Vertex]]:
@@ -31,7 +32,9 @@ class Solution(SolutionModel[UndirectedGraph]):
     @classmethod
     def check_squares(cls, value: set[Square]) -> set[Square]:
         if any(set(a) & set(b) for a, b in combinations(value, 2)):
-            raise ValueError("A square in the solution is not node-disjoint to at least one other square")
+            raise ValueError(
+                "A square in the solution is not node-disjoint to at least one other square"
+            )
         return value
 
     def validate_solution(self, instance: UndirectedGraph, role: Role) -> None:

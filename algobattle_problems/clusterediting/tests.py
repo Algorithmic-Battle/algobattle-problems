@@ -1,7 +1,13 @@
 """Tests for the clusterediting problem."""
+
 import unittest
 
-from algobattle_problems.clusterediting.problem import UndirectedGraph, Solution, ValidationError, Role
+from algobattle_problems.clusterediting.problem import (
+    Role,
+    Solution,
+    UndirectedGraph,
+    ValidationError,
+)
 
 
 class Tests(unittest.TestCase):

@@ -1,10 +1,11 @@
 """The Clusterediting problem class."""
+
 from collections import defaultdict
 from itertools import combinations
 
 from algobattle.problem import Problem, SolutionModel, minimize
+from algobattle.types import UndirectedGraph, Vertex
 from algobattle.util import Role, ValidationError
-from algobattle.types import Vertex, UndirectedGraph
 
 
 class Solution(SolutionModel[UndirectedGraph]):
@@ -36,8 +37,10 @@ class Solution(SolutionModel[UndirectedGraph]):
 
         for u in range(instance.num_vertices):
             for v, w in combinations(neighbors[u], 2):
-                if not (v, w) in edge_set and not (w, v) in edge_set:
-                    raise ValidationError("The solution does not transform the graph into a cluster.")
+                if (v, w) not in edge_set and (w, v) not in edge_set:
+                    raise ValidationError(
+                        "The solution does not transform the graph into a cluster."
+                    )
 
     @minimize
     def score(self, instance: UndirectedGraph, role: Role) -> float:
@@ -45,8 +48,5 @@ class Solution(SolutionModel[UndirectedGraph]):
 
 
 Clusterediting = Problem(
-    name="Cluster Editing",
-    min_size=4,
-    instance_cls=UndirectedGraph,
-    solution_cls=Solution,
+    name="Cluster Editing", min_size=4, instance_cls=UndirectedGraph, solution_cls=Solution
 )

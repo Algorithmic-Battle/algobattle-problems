@@ -1,10 +1,10 @@
 """Main module of the Pairsum problem."""
+
 from typing import Annotated
 
-from algobattle.problem import Problem, InstanceModel, SolutionModel
+from algobattle.problem import InstanceModel, Problem, SolutionModel
+from algobattle.types import MinLen, SizeIndex, UniqueItems, u64
 from algobattle.util import Role, ValidationError
-from algobattle.types import u64, MinLen, SizeIndex, UniqueItems
-
 
 Number = SizeIndex
 
@@ -32,9 +32,4 @@ class Solution(SolutionModel[Instance]):
             raise ValidationError("Solution elements don't have the same sum.")
 
 
-Pairsum = Problem(
-    name="Pairsum",
-    min_size=4,
-    instance_cls=Instance,
-    solution_cls=Solution,
-)
+Pairsum = Problem(name="Pairsum", min_size=4, instance_cls=Instance, solution_cls=Solution)

@@ -1,7 +1,8 @@
 """The Clusterediting problem class."""
+
 from algobattle.problem import Problem, SolutionModel, minimize
+from algobattle.types import UndirectedGraph, Vertex
 from algobattle.util import Role, ValidationError
-from algobattle.types import Vertex, UndirectedGraph
 
 
 class Solution(SolutionModel[UndirectedGraph]):
@@ -29,8 +30,5 @@ class Solution(SolutionModel[UndirectedGraph]):
 
 
 Domset = Problem(
-    name="Dominating Set",
-    min_size=2,
-    instance_cls=UndirectedGraph,
-    solution_cls=Solution,
+    name="Dominating Set", min_size=2, instance_cls=UndirectedGraph, solution_cls=Solution
 )

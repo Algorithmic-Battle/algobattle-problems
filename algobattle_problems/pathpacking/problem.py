@@ -1,8 +1,8 @@
 """The PathPacking problem class."""
 
 from algobattle.problem import Problem, SolutionModel, maximize
+from algobattle.types import UndirectedGraph, Vertex
 from algobattle.util import Role, ValidationError
-from algobattle.types import Vertex, UndirectedGraph
 
 
 class Solution(SolutionModel[UndirectedGraph]):
@@ -36,8 +36,5 @@ class Solution(SolutionModel[UndirectedGraph]):
 
 
 Pathpacking = Problem(
-    name="P_3 Path Packing",
-    min_size=3,
-    instance_cls=UndirectedGraph,
-    solution_cls=Solution,
+    name="P_3 Path Packing", min_size=3, instance_cls=UndirectedGraph, solution_cls=Solution
 )

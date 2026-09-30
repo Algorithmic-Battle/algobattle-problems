@@ -1,7 +1,8 @@
 """Tests for the Pathpacking problem."""
+
 import unittest
 
-from algobattle_problems.pathpacking.problem import UndirectedGraph, Solution, ValidationError, Role
+from algobattle_problems.pathpacking.problem import Role, Solution, UndirectedGraph, ValidationError
 
 
 class Tests(unittest.TestCase):
@@ -10,14 +11,7 @@ class Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.instance = UndirectedGraph(
-            num_vertices=6,
-            edges=[
-                (0, 1),
-                (1, 2),
-                (2, 3),
-                (3, 4),
-                (4, 5),
-            ],
+            num_vertices=6, edges=[(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
         )
 
     def test_solution_empty(self):
@@ -33,7 +27,9 @@ class Tests(unittest.TestCase):
 
     def test_score(self):
         self.assertEqual(Solution(paths={(0, 1, 2)}).score(self.instance, Role.solver), 1)
-        self.assertEqual(Solution(paths={(0, 1, 2), (3, 4, 5)}).score(self.instance, Role.solver), 2)
+        self.assertEqual(
+            Solution(paths={(0, 1, 2), (3, 4, 5)}).score(self.instance, Role.solver), 2
+        )
 
 
 if __name__ == "__main__":

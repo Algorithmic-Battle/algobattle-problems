@@ -1,3 +1,10 @@
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
 [project]
 name = "algobattle-problems"
 version = "1.1.0"
@@ -6,7 +13,12 @@ license = {text = "MIT"}
 authors = [{name = "Imogen Hergeth"}, {name = "Jan Dreier"}, {name = "Henri Lotze"}]
 dependencies = [
     "algobattle-base~=4.4.0",
-    "networkx",
+    "networkx>=3.7.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.9",
 ]
 
 [project.urls]
@@ -27,8 +39,99 @@ Pairsum = "algobattle_problems.pairsum.problem:Pairsum"
 "Traveling Salesman with Time Windows" = "algobattle_problems.tsptimewindows.problem:Tsptimewindows"
 "Circle Cover" = "algobattle_problems.circlecover.problem:CircleCover"
 
+[tool.ruff]
+preview = true
+line-length = 100
+exclude = ["docs/src"]
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E4",
+    "E7",
+    "E9",
+    "I",
+    "UP",
+    "YTT",
+    "ASYNC",
+    "BLE",
+    "FBT",
+    "B",
+    "C4",
+    "DTZ",
+    "ISC",
+    "G",
+    "PIE",
+    "PYI",
+    "SLOT",
+    "SIM",
+    "PTH",
+    "TRY",
+    "FLY",
+    "PERF",
+    "FURB",
+    "RUF",
+]
+ignore = [
+    "raise-vanilla-args",
+    "unnecessary-placeholder",
+    "boolean-type-hint-positional-argument",
+    "boolean-default-value-positional-argument",
+    "empty-method-without-abstract-decorator",
+    "boolean-positional-value-in-call",
+    "ambiguous-unicode-character-string",
+    "none-not-at-end-of-union",
+    "blind-except",
+    "call-datetime-now-without-tzinfo",
+    "async-function-with-timeout",
+]
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+combine-as-imports = true
+
 [tool.pyright]
 diagnosticMode = "workspace"
-
-[tool.black]
-line-length = 100
+exclude = [".venv", "docs", "**/node_modules", "**/__pycache__", "**/.*"]
+typeCheckingMode = "standard"
+disableBytesTypePromotions = true
+strictDictionaryInference = true
+strictListInference = true
+strictSetInference = true
+deprecateTypingAliases = true
+enableExperimentalFeatures = true
+reportAssertAlwaysTrue = "information"
+reportUnusedExpression = "information"
+reportConstantRedefinition = "warning"
+reportDeprecated = "information"
+reportDuplicateImport = "information"
+reportIncompleteStub = "warning"
+reportInconsistentConstructor = "error"
+reportInvalidStubStatement = "warning"
+reportMatchNotExhaustive = "warning"
+reportMissingParameterType = "warning"
+reportMissingTypeArgument = "none"
+reportPrivateUsage = "none"
+reportTypeCommentUsage = "information"
+reportUnknownArgumentType = "none"
+reportUnknownLambdaType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "warning"
+reportUnknownVariableType = "none"
+reportUnnecessaryCast = "information"
+reportUnnecessaryIsInstance = "information"
+reportUnnecessaryComparison = "information"
+reportUnnecessaryContains = "information"
+reportUnusedCoroutine = "warning"
+reportUntypedFunctionDecorator = "warning"
+reportUntypedClassDecorator = "warning"
+reportUntypedBaseClass = "warning"
+reportUntypedNamedTuple = "warning"
+reportCallInDefaultInitializer = "none"
+reportImportCycles = "warning"
+reportPropertyTypeMismatch = "error"
+reportShadowedImports = "warning"
+reportUnnecessaryTypeIgnoreComment = "information"
+reportUninitializedInstanceVariable = "warning"
+reportFunctionMemberAccess = "warning"
+reportOverlappingOverload = "warning"

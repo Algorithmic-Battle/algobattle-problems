@@ -3,12 +3,13 @@
 Shuffles the instance, divides it into two sections and searches a matching pair between both sections.
 """
 
-from itertools import combinations
 import json
+import pathlib
 import random
+from itertools import combinations
 
 line = None
-with open("/input/instance.json", "r") as input:
+with pathlib.Path("/input/instance.json").open() as input:
     instance = json.load(input)
 
 ints: list[int] = instance["numbers"]
@@ -26,6 +27,6 @@ while sol is None:
         if sum in found_sums:
             sol = (*found_sums[sum], x, y)
 
-with open("/output/solution.json", "w+") as f:
+with pathlib.Path("/output/solution.json").open("w+") as f:
     json.dump({"indices": sol}, f)
     raise SystemExit

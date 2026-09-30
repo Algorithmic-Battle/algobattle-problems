@@ -1,9 +1,15 @@
 """Tests for the c4subgraphiso problem."""
+
 import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.c4subgraphiso.problem import UndirectedGraph, Solution, ValidationError, Role
+from algobattle_problems.c4subgraphiso.problem import (
+    Role,
+    Solution,
+    UndirectedGraph,
+    ValidationError,
+)
 
 
 class Tests(unittest.TestCase):
@@ -35,14 +41,7 @@ class Tests(unittest.TestCase):
 
     def test_no_duplicate_squares(self):
         with self.assertRaises(PydanticValidationError):
-            UndirectedGraph.model_validate(
-                {
-                    "squares": {
-                        (0, 1, 2, 3),
-                        (0, 1, 2, 3),
-                    }
-                }
-            )
+            UndirectedGraph.model_validate({"squares": {(0, 1, 2, 3), (0, 1, 2, 3)}})
 
     def test_vertex_too_big(self):
         solution = Solution(squares={(0, 1, 2, 10)})

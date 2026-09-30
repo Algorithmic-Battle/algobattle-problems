@@ -1,14 +1,14 @@
 """The Longestpathboundedfvs problem class."""
+
 from math import sqrt
 
-from pydantic import Field
+from algobattle.problem import Problem, SolutionModel, maximize
+from algobattle.types import UndirectedGraph, Vertex
+from algobattle.util import Role, ValidationError
 from networkx import Graph
 from networkx.algorithms.tree.recognition import is_forest
 from networkx.classes.function import is_empty
-
-from algobattle.problem import Problem, SolutionModel, maximize
-from algobattle.util import Role, ValidationError
-from algobattle.types import Vertex, UndirectedGraph
+from pydantic import Field
 
 
 class Instance(UndirectedGraph):
@@ -53,10 +53,7 @@ class Solution(SolutionModel[Instance]):
         g = Graph()
         for edge in edge_set:
             g.add_edge(edge[0], edge[1])
-        for i in range(len(self.path) - 1):
-            if not g.has_edge(self.path[i], self.path[i + 1]):
-                return False
-        return True
+        return all(g.has_edge(self.path[i], self.path[i + 1]) for i in range(len(self.path) - 1))
 
     def _no_revisited_nodes(self) -> bool:
         return len(self.path) == len(set(self.path))

@@ -1,10 +1,11 @@
 """The Circle Cover problem class."""
+
 from math import sqrt
 from typing import Annotated, Literal
-from algobattle.problem import Problem, InstanceModel, SolutionModel, maximize
-from algobattle.util import Role
-from algobattle.types import LaxComp, Interval
 
+from algobattle.problem import InstanceModel, Problem, SolutionModel, maximize
+from algobattle.types import Interval, LaxComp
+from algobattle.util import Role
 
 Coordinate = Annotated[float, Interval(ge=0, le=100)]
 Point = tuple[Coordinate, Coordinate]
@@ -34,7 +35,9 @@ class Solution(SolutionModel[Instance]):
     def score(self, instance: Instance, role: Role) -> float:
         covered = 0
         for size, center in self.circles.items():
-            covered += sum(distance(center, point) <= LaxComp(size, role) for point in instance.points)
+            covered += sum(
+                distance(center, point) <= LaxComp(size, role) for point in instance.points
+            )
         return covered
 
 

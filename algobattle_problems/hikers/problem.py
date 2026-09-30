@@ -1,9 +1,10 @@
 """The Hikers problem class."""
-from collections import Counter
-from algobattle.problem import Problem, InstanceModel, SolutionModel, maximize
-from algobattle.util import Role, ValidationError
-from algobattle.types import u64, SizeIndex
 
+from collections import Counter
+
+from algobattle.problem import InstanceModel, Problem, SolutionModel, maximize
+from algobattle.types import SizeIndex, u64
+from algobattle.util import Role, ValidationError
 
 Hiker = SizeIndex
 
@@ -21,7 +22,9 @@ class HikersInstance(InstanceModel):
     def validate_instance(self) -> None:
         super().validate_instance()
         if any(min_size > max_size for min_size, max_size in self.hikers):
-            raise ValidationError("One hiker's minimum group size is larger than their maximum group size.")
+            raise ValidationError(
+                "One hiker's minimum group size is larger than their maximum group size."
+            )
 
 
 class Solution(SolutionModel[HikersInstance]):
@@ -43,9 +46,4 @@ class Solution(SolutionModel[HikersInstance]):
         return len(self.assignments)
 
 
-Hikers = Problem(
-    name="Hikers",
-    min_size=5,
-    instance_cls=HikersInstance,
-    solution_cls=Solution,
-)
+Hikers = Problem(name="Hikers", min_size=5, instance_cls=HikersInstance, solution_cls=Solution)

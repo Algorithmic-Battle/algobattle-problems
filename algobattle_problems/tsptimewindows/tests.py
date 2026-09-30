@@ -1,15 +1,16 @@
 """Tests for the scheduling problem."""
+
 import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
 from algobattle_problems.tsptimewindows.problem import (
     Instance,
-    Solution,
-    ValidationError,
     Location,
     Role,
+    Solution,
     Tsptimewindows,
+    ValidationError,
 )
 
 
@@ -33,10 +34,7 @@ class Tests(unittest.TestCase):
 
     def test_node_tour(self):
         tour = [0, 1]
-        nodes = [
-            self.instance.locations[0],
-            self.instance.locations[1],
-        ]
+        nodes = [self.instance.locations[0], self.instance.locations[1]]
         node_tour = list(Solution(tour=tour).location_tour(self.instance))
         self.assertEqual(node_tour, nodes)
 
@@ -66,7 +64,9 @@ class Tests(unittest.TestCase):
     def test_score_gen_wrong(self):
         solution = Solution(tour=[0, 1])
         with self.assertRaises(ValidationError):
-            Tsptimewindows.score(self.instance_short, generator_solution=solution, solver_solution=solution)
+            Tsptimewindows.score(
+                self.instance_short, generator_solution=solution, solver_solution=solution
+            )
 
 
 if __name__ == "__main__":

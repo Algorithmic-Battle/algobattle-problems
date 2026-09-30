@@ -1,9 +1,10 @@
 """Tests for the scheduling problem."""
+
 import unittest
 
 from pydantic import ValidationError as PydanticValidationError
 
-from algobattle_problems.scheduling.problem import Instance, Solution, Role
+from algobattle_problems.scheduling.problem import Instance, Role, Solution
 
 
 class Tests(unittest.TestCase):

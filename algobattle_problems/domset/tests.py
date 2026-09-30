@@ -1,7 +1,14 @@
 """Tests for the DomSet problem."""
+
 import unittest
 
-from algobattle_problems.domset.problem import Domset, UndirectedGraph, Solution, ValidationError, Role
+from algobattle_problems.domset.problem import (
+    Domset,
+    Role,
+    Solution,
+    UndirectedGraph,
+    ValidationError,
+)
 
 
 class Tests(unittest.TestCase):
@@ -9,15 +16,7 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = UndirectedGraph(
-            num_vertices=5,
-            edges=[
-                (0, 1),
-                (2, 1),
-                (2, 3),
-                (3, 0),
-            ],
-        )
+        cls.instance = UndirectedGraph(num_vertices=5, edges=[(0, 1), (2, 1), (2, 3), (3, 0)])
 
     def test_basic_validate(self):
         solution = Solution(domset={1, 3, 4})
@@ -34,7 +33,10 @@ class Tests(unittest.TestCase):
         self.assertAlmostEqual(bad_solution.score(self.instance, Role.solver), 1 / 5)
         self.assertAlmostEqual(good_solution.score(self.instance, Role.generator), 1 / 3)
         self.assertAlmostEqual(
-            Domset.score(self.instance, generator_solution=good_solution, solver_solution=bad_solution), 0.6
+            Domset.score(
+                self.instance, generator_solution=good_solution, solver_solution=bad_solution
+            ),
+            0.6,
         )
 
 

@@ -1,13 +1,14 @@
 """The Tsptimewindows problem class."""
+
+from collections.abc import Iterable
 from itertools import pairwise
 from math import sqrt
+from typing import Annotated, Self
 
-from typing import Annotated, Iterable, Self
-from pydantic import Field
-
-from algobattle.problem import Problem, InstanceModel, SolutionModel, minimize
+from algobattle.problem import InstanceModel, Problem, SolutionModel, minimize
+from algobattle.types import SizeIndex, SizeLen, UniqueItems
 from algobattle.util import BaseModel, Role, ValidationError
-from algobattle.types import SizeIndex, UniqueItems, SizeLen
+from pydantic import Field
 
 
 class Location(BaseModel):
@@ -53,12 +54,16 @@ class Solution(SolutionModel[Instance]):
     @minimize
     def score(self, instance: Instance, role: Role) -> float:
         speed = 1.1 if role == Role.solver else 1  # the solving team is faster than the generating
-        time = instance.locations[self.tour[0]].min_time  # wait at the first location until it becomes available
+        time = instance.locations[
+            self.tour[0]
+        ].min_time  # wait at the first location until it becomes available
         for curr, next in pairwise(self.location_tour(instance)):
             arrival_time = time + curr.distance(next) / speed
             if arrival_time > next.max_time:
                 raise ValidationError("The tour visits a location too late.")
-            time = max(arrival_time, next.min_time)  # wait until the next location becomes available
+            time = max(
+                arrival_time, next.min_time
+            )  # wait until the next location becomes available
         if len(self.tour) >= 2:
             first, *_, last = self.location_tour(instance)
             time_to_start = last.distance(first) / speed
