@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked
       - name: Lint with Ruff
-        run: uv run ruff check .\algobattle_problems\
+        run: uv run ruff check ./algobattle_problems/
 
   test:
     runs-on: ubuntu-latest
